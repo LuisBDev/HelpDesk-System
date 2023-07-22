@@ -9,38 +9,38 @@ $documento = new Documento();
 
 $usuario = new Usuario();
 
+$fecha_format = "d/m/Y H:i:s";
+
 switch ($_GET["op"]) {
 
     case "insert":
         $datos = $ticket->insert_ticket($_POST["usu_id"], $_POST["cat_id"], $_POST["tick_titulo"], $_POST["tick_descrip"]);
-        if (is_array($datos) == true and count($datos) > 0) {
-            foreach ($datos as $row) {
-                $output["tick_id"] = $row["tick_id"];
 
-                if ($_FILES['files']['name'] == 0) {
+        if (is_array($datos) && !empty($datos)) {
+            $output["tick_id"] = $datos[0]["tick_id"];
 
-                } else {
-                    $countfiles = count($_FILES['files']['name']);
-                    $ruta = "../public/document/" . $output["tick_id"] . "/";
-                    $files_arr = array();
+            if (isset($_FILES['files']) && is_array($_FILES['files']['name']) && count($_FILES['files']['name']) > 0) {
+                $ruta = "../public/document/" . $output["tick_id"] . "/";
+                $files_arr = array();
 
-                    if (!file_exists($ruta)) {
-                        mkdir($ruta, 0777, true);
-                    }
+                if (!file_exists($ruta)) {
+                    mkdir($ruta, 0777, true);
+                }
 
-                    for ($index = 0; $index < $countfiles; $index++) {
-                        $doc1 = $_FILES['files']['tmp_name'][$index];
-                        $destino = $ruta . $_FILES['files']['name'][$index];
+                for ($index = 0; $index < count($_FILES['files']['name']); $index++) {
+                    $doc1 = $_FILES['files']['tmp_name'][$index];
+                    $destino = $ruta . $_FILES['files']['name'][$index];
 
-                        $documento->insert_documento($output["tick_id"], $_FILES['files']['name'][$index]);
+                    $documento->insert_documento($output["tick_id"], $_FILES['files']['name'][$index]);
 
-                        move_uploaded_file($doc1, $destino);
-                    }
+                    move_uploaded_file($doc1, $destino);
                 }
             }
         }
+
         echo json_encode($datos);
         break;
+
 
     case "update":
         $ticket->update_ticket($_POST["tick_id"]);
@@ -66,12 +66,12 @@ switch ($_GET["op"]) {
                 $sub_array[] = '<span class="label label-pill label-danger">Cerrado</span>';
             }
 
-            $sub_array[] = date("d/m/Y H:i:s", strtotime($row["fech_crea"]));
+            $sub_array[] = date($fecha_format, strtotime($row["fech_crea"]));
 
             if ($row["fech_asig"] == null) {
                 $sub_array[] = '<span class="label label-pill label-default">Sin Asignar</span>';
             } else {
-                $sub_array[] = date("d/m/Y H:i:s", strtotime($row["fech_asig"]));
+                $sub_array[] = date($fecha_format, strtotime($row["fech_asig"]));
             }
 
             if ($row["usu_asig"] == null) {
@@ -111,12 +111,12 @@ switch ($_GET["op"]) {
                 $sub_array[] = '<span class="label label-pill label-danger">Cerrado</span>';
             }
 
-            $sub_array[] = date("d/m/Y H:i:s", strtotime($row["fech_crea"]));
+            $sub_array[] = date($fecha_format, strtotime($row["fech_crea"]));
 
             if ($row["fech_asig"] == null) {
                 $sub_array[] = '<span class="label label-pill label-default">Sin Asignar</span>';
             } else {
-                $sub_array[] = date("d/m/Y H:i:s", strtotime($row["fech_asig"]));
+                $sub_array[] = date($fecha_format, strtotime($row["fech_asig"]));
             }
 
             if ($row["usu_asig"] == null) {
@@ -208,7 +208,7 @@ switch ($_GET["op"]) {
 
                 $output["tick_estado_texto"] = $row["tick_estado"];
 
-                $output["fech_crea"] = date("d/m/Y H:i:s", strtotime($row["fech_crea"]));
+                $output["fech_crea"] = date($fecha_format, strtotime($row["fech_crea"]));
                 $output["usu_nom"] = $row["usu_nom"];
                 $output["usu_ape"] = $row["usu_ape"];
                 $output["cat_nom"] = $row["cat_nom"];
