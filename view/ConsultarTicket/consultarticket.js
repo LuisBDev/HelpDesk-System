@@ -1,6 +1,6 @@
-var tabla;
-var usu_id = $('#user_idx').val();
-var rol_id = $('#rol_idx').val();
+let tabla;
+let usu_id = $('#user_idx').val();
+let rol_id = $('#rol_idx').val();
 
 function init() {
     $("#ticket_form").on("submit", function (e) {

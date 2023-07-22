@@ -1,5 +1,5 @@
 <?php
-require_once("config/conexion.php");
+require_once "config/conexion.php";
 
 ?>
 
@@ -37,8 +37,7 @@ require_once("config/conexion.php");
                     <header class="sign-title">Recuperar contraseña</header>
 
                     <div class="form-group">
-                        <input type="text" id="user_correo" name="user_correo" class="form-control" placeholder="E-Mail"
-                            pattern=".*@.*" title="El correo electrónico debe contener '@'" required />
+                        <input type="text" id="user_correo" name="user_correo" class="form-control" placeholder="E-Mail" pattern=".*@.*" title="El correo electrónico debe contener '@'" required />
                     </div>
 
 
