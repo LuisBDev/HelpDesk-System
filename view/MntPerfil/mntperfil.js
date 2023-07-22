@@ -11,7 +11,7 @@ $(document).on("click", "#btnactualizar", function () {
     }
     else {
         $.post("../../controller/usuario.php?op=password", { usu_id: usu_id, usu_pass: txtpassnew }, function (data) {
-            swal("HelpDesk", "Contraseña actualizada!", "success")
+            swal("HelpDesk", "Contraseña actualizada!!", "success")
         });
     }
 });
