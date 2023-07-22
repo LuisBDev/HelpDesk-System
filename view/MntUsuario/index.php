@@ -40,9 +40,9 @@ if (isset($_SESSION["usu_id"])) {
                             <tr>
                                 <th style="width: 10%;">Nombre</th>
                                 <th style="width: 10%;">Apellido</th>
-                                <th class="d-none d-sm-table-cell" style="width: 40%;">Correo</th>
-                                <th class="d-none d-sm-table-cell" style="width: 5%;">Contraseña</th>
-                                <th class="d-none d-sm-table-cell" style="width: 5%;">Rol</th>
+                                <th class="text-center d-none d-sm-table-cell" style="width: 40%;">Correo</th>
+                                <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Contraseña<br>Encriptada</th>
+                                <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Rol</th>
                                 <th class="text-center" style="width: 5%;"></th>
                                 <th class="text-center" style="width: 5%;"></th>
                             </tr>
@@ -51,14 +51,12 @@ if (isset($_SESSION["usu_id"])) {
                             <?php
                             $conexion = new PDO("mysql:host=localhost;dbname=sgi_helpdesk", "root", "");
 
-
                             $consulta = $conexion->prepare("SELECT * FROM tm_usuario");
                             $consulta->execute();
+                            $usuarios = $consulta->fetchAll(PDO::FETCH_ASSOC);
 
-
-                            if ($consulta->rowCount() > 0) {
-
-                                while ($usuario = $consulta->fetch(PDO::FETCH_ASSOC)) {
+                            if (!empty($usuarios)) {
+                                foreach ($usuarios as $usuario) {
                                     echo "<tr>";
                                     echo "<td>{$usuario['usu_nom']}</td>";
                                     echo "<td>{$usuario['usu_ape']}</td>";
