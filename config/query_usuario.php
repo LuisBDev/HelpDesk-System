@@ -4,7 +4,7 @@ class Query_usuario extends Conectar
 {
     public function executeQuery($sql, $params)
     {
-        require_once("conexion.php");
+        require_once "conexion.php";
         $conectar = parent::Conexion();
         parent::set_names();
 

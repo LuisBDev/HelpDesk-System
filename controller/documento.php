@@ -1,13 +1,15 @@
 <?php
 /* llamada a las clases necesarias */
-require_once("../config/conexion.php");
-require_once("../models/documento.php");
+require_once "../config/conexion.php";
+require_once "../models/documento.php";
+
 $documento = new Documento();
 
-/* opciones del controlador */
-switch ($_GET["op"]) {
-        /* manejo de json para poder listar en el datatable, formato de json segun documentacion */
-    case "listar":
+if (isset($_GET["op"])) {
+
+    $operation = $_GET["op"];
+
+    if ($operation == "listar") {
         $datos = $documento->get_documento_x_ticket($_POST["tick_id"]);
         $data = array();
         foreach ($datos as $row) {
@@ -24,5 +26,5 @@ switch ($_GET["op"]) {
             "aaData" => $data
         );
         echo json_encode($results);
-        break;
+    }
 }
