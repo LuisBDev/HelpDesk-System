@@ -27,10 +27,11 @@ class Usuario extends Conectar
                 $resultado = $stmt->fetch();
 
                 if (Validaciones_usuario::isValidUser($resultado)) {
-                    $_SESSION["usu_id"] = $resultado["usu_id"];
-                    $_SESSION["usu_nom"] = $resultado["usu_nom"];
-                    $_SESSION["usu_ape"] = $resultado["usu_ape"];
-                    $_SESSION["rol_id"] = $resultado["rol_id"];
+
+                    //Setteamos las variables globales de sesion
+                    //(usu_id,usu_nom, usu_ape, rol_id)
+                    Usuario::setUserSession($resultado);
+
                     header("Location:" . Conectar::ruta() . "view/Home/");
                     exit();
                 } else {
@@ -39,6 +40,13 @@ class Usuario extends Conectar
             }
         }
     }
+    private function setUserSession($resultado)
+    {
+        $_SESSION["usu_id"] = $resultado["usu_id"];
+        $_SESSION["usu_nom"] = $resultado["usu_nom"];
+        $_SESSION["usu_ape"] = $resultado["usu_ape"];
+        $_SESSION["rol_id"] = $resultado["rol_id"];
+    }
 
     private function redirectWithError($location)
     {
@@ -46,25 +54,10 @@ class Usuario extends Conectar
         exit();
     }
 
-    private function redirectWithSuccess($location)
-    {
-        header("Location: " . Conectar::ruta() . $location);
-        exit();
-    }
-
-    private function setUserSession($resultado)
-    {
-        $_SESSION["user_id"] = $resultado["user_id"];
-        $_SESSION["user_nombre"] = $resultado["user_nombre"];
-        $_SESSION["user_apellido"] = $resultado["user_apellido"];
-    }
-
-
     public function insert_usuario($usu_nom, $usu_ape, $usu_correo, $usu_pass, $rol_id)
     {
         $conectar = parent::Conexion();
         parent::set_names();
-        // $sql = "INSERT INTO tm_usuario (usu_id, usu_nom, usu_ape, usu_correo, usu_pass, rol_id, fech_crea, fech_modi, fech_elim, est) VALUES (NULL,?,?,?,MD5(?),?,now(), NULL, NULL, '1');";
         $sql = "INSERT INTO tm_usuario (usu_id, usu_nom, usu_ape, usu_correo, usu_pass, rol_id, fech_crea, fech_modi, fech_elim, est) VALUES (NULL,?,?,?,?,?,now(), NULL, NULL, '1');";
         $sql = $conectar->prepare($sql);
         $sql->bindValue(1, $usu_nom);
@@ -180,16 +173,32 @@ class Usuario extends Conectar
         $conectar = parent::Conexion();
         parent::set_names();
         $sql = "SELECT tm_categoria.cat_nom as nom,COUNT(*) AS total
-                FROM   tm_ticket  JOIN  
-                    tm_categoria ON tm_ticket.cat_id = tm_categoria.cat_id  
+                FROM tm_ticket JOIN  
+                tm_categoria ON tm_ticket.cat_id = tm_categoria.cat_id  
                 WHERE    
                 tm_ticket.est = 1
                 and tm_ticket.usu_id = ?
                 GROUP BY 
                 tm_categoria.cat_nom 
                 ORDER BY total DESC";
+
         $sql = $conectar->prepare($sql);
         $sql->bindValue(1, $usu_id);
+        $sql->execute();
+        return $resultado = $sql->fetchAll();
+    }
+
+    public function update_user_pass($usu_id, $usu_pass)
+    {
+        $conectar = parent::Conexion();
+        parent::set_names();
+        $sql = "UPDATE tm_usuario set
+                usu_pass = ?
+                WHERE
+                usu_id = ?";
+        $sql = $conectar->prepare($sql);
+        $sql->bindValue(1, $usu_pass);
+        $sql->bindValue(2, $usu_id);
         $sql->execute();
         return $resultado = $sql->fetchAll();
     }
