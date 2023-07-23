@@ -34,36 +34,65 @@ if (isset($_SESSION["usu_id"])) {
                     </div>
                 </header>
 
+                <!-- Inicio Cambio de Contraseña -->
                 <div class="box-typical box-typical-padding">
-                    <p>
-                        Desde esta ventana podra generar una nueva contraseña.
-                    </p>
 
-                    <h5 class="m-t-lg with-border">Ingresar Información</h5>
+                    <h5 class="m-t-lg with-border">Actualizar Contraseña</h5>
 
                     <div class="row">
                         <input type="hidden" id="usu_id" name="usu_id" value="<?php echo $_SESSION["usu_id"] ?>">
 
                         <div class="col-lg-12">
                             <fieldset class="form-group">
-                                <label class="form-label semibold" for="exampleInput">Cambiar Contraseña</label>
-                                <input type="password" class="form-control" id="txtpass" name="txtpass" placeholder="Ingrese Contraseña">
+                                <label class="form-label semibold" for="exampleInput">Contraseña Antigua</label>
+                                <input type="password" class="form-control" id="txtPassAntigua" name="txtpass" placeholder="Ingrese Contraseña Antigua">
                             </fieldset>
                         </div>
 
                         <div class="col-lg-12">
                             <fieldset class="form-group">
-                                <label class="form-label semibold" for="exampleInput">Confirmar Contraseña</label>
-                                <input type="password" class="form-control" id="txtpassnew" name="txtpassnew" placeholder="Ingrese Contraseña">
+                                <label class="form-label semibold" for="exampleInput">Contraseña Nueva</label>
+                                <input type="password" class="form-control" id="txtPassNueva" name="txtpassnew" placeholder="Ingrese Contraseña Nueva">
                             </fieldset>
                         </div>
 
                         <div class="col-lg-12">
-                            <button id="btnactualizar" type="button" class="btn btn-rounded btn-inline btn-primary">Actualizar</button>
+                            <button id="btnActualizarPass" type="button" class="btn btn-rounded btn-inline btn-primary">Actualizar</button>
                         </div>
                     </div>
 
                 </div>
+                <!-- Fin Cambio de Contraseña -->
+
+                <!-- Inicio Cambio de Correo -->
+                <div class="box-typical box-typical-padding">
+
+                    <h5 class="m-t-lg with-border">Actualizar Correo</h5>
+
+                    <div class="row">
+                        <input type="hidden" id="usu_id" name="usu_id" value="<?php echo $_SESSION["usu_id"] ?>">
+
+                        <div class="col-lg-12">
+                            <fieldset class="form-group">
+                                <label class="form-label semibold" for="exampleInput">Correo Antiguo</label>
+                                <input type="text" class="form-control" id="txtCorreoAntiguo" placeholder="Insertar Correo Antiguo">
+                            </fieldset>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <fieldset class="form-group">
+                                <label class="form-label semibold" for="exampleInput">Correo Nuevo</label>
+                                <input type="text" class="form-control" id="txtCorreoNuevo" placeholder="Insertar Correo Actualizado">
+                            </fieldset>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <button id="btnActualizarCorreo" type="button" class="btn btn-rounded btn-inline btn-primary">Actualizar</button>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Fin Cambio de Correo -->
             </div>
         </div>
         <!-- Contenido -->

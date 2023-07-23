@@ -46,6 +46,7 @@ class Usuario extends Conectar
         $_SESSION["usu_nom"] = $resultado["usu_nom"];
         $_SESSION["usu_ape"] = $resultado["usu_ape"];
         $_SESSION["rol_id"] = $resultado["rol_id"];
+        $_SESSION["usu_correo"] = $resultado["usu_correo"];
     }
 
     private function redirectWithError($location)
@@ -198,6 +199,29 @@ class Usuario extends Conectar
                 usu_id = ?";
         $sql = $conectar->prepare($sql);
         $sql->bindValue(1, $usu_pass);
+        $sql->bindValue(2, $usu_id);
+        $sql->execute();
+        return $resultado = $sql->fetchAll();
+    }
+
+    public function get_user_correo($usu_id)
+    {
+        $conectar = parent::Conexion();
+        parent::set_names();
+        $sql = "SELECT usu_correo FROM tm_usuario where usu_id = ?";
+        $sql = $conectar->prepare($sql);
+        $sql->bindValue(1, $usu_id);
+        $sql->execute();
+        return $sql->fetch();
+    }
+
+    public function actualizar_correo($usu_id, $usu_correo)
+    {
+        $conectar = parent::Conexion();
+        parent::set_names();
+        $sql = "UPDATE tm_usuario SET usu_correo = ? WHERE usu_id = ?";
+        $sql = $conectar->prepare($sql);
+        $sql->bindValue(1, $usu_correo);
         $sql->bindValue(2, $usu_id);
         $sql->execute();
         return $resultado = $sql->fetchAll();

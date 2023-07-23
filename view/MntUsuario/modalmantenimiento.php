@@ -72,8 +72,8 @@
 
     // Evento click del botón de guardar
     document.getElementById("btnModalGuardar").addEventListener("click", function(event) {
-        var passwordInput = document.getElementById("usu_pass");
-        var passwordValue = passwordInput.value;
+
+        let passwordValue = document.getElementById("usu_pass");
 
         // Verificar si la contraseña está encriptada
         if (isPasswordHashed(passwordValue)) {

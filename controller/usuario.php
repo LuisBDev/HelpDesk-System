@@ -3,6 +3,7 @@ require_once "../config/conexion.php";
 require_once "../models/Usuario.php";
 $usuario = new Usuario();
 
+
 switch ($_GET["op"]) {
     case "guardaryeditar":
         if (empty($_POST["usu_id"])) {
@@ -25,7 +26,7 @@ switch ($_GET["op"]) {
             $hashed_password = password_hash($row["usu_pass"], PASSWORD_BCRYPT);
             $sub_array[] = substr($hashed_password, 0, 8) . '...';
 
-            if ($row["rol_id"] == "1") {
+            if ($row["rol_id"] == 1) {
                 $sub_array[] = '<span class="label label-pill label-success">Usuario</span>';
             } else {
                 $sub_array[] = '<span class="label label-pill label-info">Soporte</span>';
@@ -114,5 +115,19 @@ switch ($_GET["op"]) {
         //Controller - Actualizar contraseña
     case "password":
         $usuario->update_user_pass($_POST["usu_id"], $_POST["usu_pass"]);
+        break;
+
+
+
+    case "get_user_correo":
+        $correo = $usuario->get_user_correo($_POST["usu_id"]);
+
+        echo json_encode($correo);
+
+        break;
+
+    case "actualizar_correo":
+        $nuevo_correo = $usuario->actualizar_correo($_POST["usu_id"], $_POST["usu_correo"]);
+        echo json_encode($nuevo_correo);
         break;
 }
