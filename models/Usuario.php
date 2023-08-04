@@ -47,6 +47,7 @@ class Usuario extends Conectar
         $_SESSION["usu_ape"] = $resultado["usu_ape"];
         $_SESSION["rol_id"] = $resultado["rol_id"];
         $_SESSION["usu_correo"] = $resultado["usu_correo"];
+        $_SESSION["usu_pass"] = $resultado["usu_pass"];
     }
 
     private function redirectWithError($location)

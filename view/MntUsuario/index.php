@@ -87,6 +87,7 @@ if (isset($_SESSION["usu_id"])) {
 
         <?php require_once "modalmantenimiento.php"; ?>
         <?php require_once "modalclave.php"; ?>
+        <?php require_once "modalcrearnuevo.php"; ?>
 
         <?php require_once "../MainJs/js.php"; ?>
 

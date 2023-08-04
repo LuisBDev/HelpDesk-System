@@ -7,14 +7,20 @@ function init() {
     $("#usuario_form_clave").on("submit", function (e) {
         guardaryeditarClave(e);
     });
+    $("#usuario_form_nuevo").on("submit", function (e) {
+        guardaryeditarNuevo(e);
+    }
+    );
 
 }
 
 function guardaryeditar(e) {
     e.preventDefault();
     let formData = new FormData($("#usuario_form")[0]);
+
     let usu_pass = $('#usu_pass').val();
     formData.append('usu_pass', usu_pass); // Agregar usu_pass al formData
+
 
     $.ajax({
         url: "../../controller/usuario.php?op=guardaryeditar",
@@ -26,6 +32,37 @@ function guardaryeditar(e) {
             console.log(datos);
             $('#usuario_form')[0].reset();
             $("#modalmantenimiento").modal('hide');
+            $('#usuario_data').DataTable().ajax.reload();
+
+            swal({
+                title: "HelpDesk!",
+                text: "Completado.",
+                type: "success",
+                confirmButtonClass: "btn-success"
+            });
+        }
+    });
+}
+
+
+function guardaryeditarNuevo(e) {
+    e.preventDefault();
+    let formData = new FormData($("#usuario_form_nuevo")[0]);
+
+    let usu_pass = formData.get('usu_pass');
+    formData.append('usu_pass', usu_pass); // Agregar usu_pass al formData
+
+
+    $.ajax({
+        url: "../../controller/usuario.php?op=guardaryeditar",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (datos) {
+            console.log(datos);
+            $('#usuario_form_nuevo')[0].reset();
+            $("#modalcrearnuevo").modal('hide');
             $('#usuario_data').DataTable().ajax.reload();
 
             swal({
@@ -189,7 +226,9 @@ function eliminar(usu_id) {
 $(document).on("click", "#btnnuevo", function () {
     $('#mdltitulo').html('Nuevo Registro');
     $('#usuario_form')[0].reset();
-    $('#modalmantenimiento').modal('show');
+    // $('#modalmantenimiento').modal('show');
+    $('#modalcrearnuevo').modal('show');
+
 });
 
 init();
