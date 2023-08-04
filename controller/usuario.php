@@ -33,6 +33,7 @@ switch ($_GET["op"]) {
             }
 
             $sub_array[] = '<button type="button" onClick="editar(' . $row["usu_id"] . ');"  id="' . $row["usu_id"] . '" class="btn btn-inline btn-warning btn-sm ladda-button"><i class="fa fa-edit"></i></button>';
+            $sub_array[] = '<button type="button" onClick="editarclave(' . $row["usu_id"] . ');"  id="' . $row["usu_id"] . '" class="btn btn-inline btn-warning btn-sm ladda-button"><i class="fa fa-edit"></i></button>';
             $sub_array[] = '<button type="button" onClick="eliminar(' . $row["usu_id"] . ');"  id="' . $row["usu_id"] . '" class="btn btn-inline btn-danger btn-sm ladda-button"><i class="fa fa-trash"></i></button>';
             $data[] = $sub_array;
         }
@@ -52,7 +53,7 @@ switch ($_GET["op"]) {
 
     case "mostrar":
         $datos = $usuario->get_usuario_x_id($_POST["usu_id"]);
-        if (is_array($datos) == true and count($datos) > 0) {
+        if (is_array($datos) && count($datos) > 0) {
             foreach ($datos as $row) {
                 $output["usu_id"] = $row["usu_id"];
                 $output["usu_nom"] = $row["usu_nom"];
@@ -103,7 +104,7 @@ switch ($_GET["op"]) {
 
     case "combo":
         $datos = $usuario->get_usuario_x_rol();
-        if (is_array($datos) == true and count($datos) > 0) {
+        if (is_array($datos) && count($datos) > 0) {
             $html .= "<option label='Seleccionar'></option>";
             foreach ($datos as $row) {
                 $html .= "<option value='" . $row['usu_id'] . "'>" . $row['usu_nom'] . "</option>";
@@ -112,8 +113,15 @@ switch ($_GET["op"]) {
         }
         break;
 
+
+    case "get_user_pass":
+        $pass = $usuario->get_user_pass($_POST["usu_id"]);
+        echo json_encode($pass);
+
+        break;
+
         //Controller - Actualizar contraseña
-    case "password":
+    case "update_user_pass":
         $usuario->update_user_pass($_POST["usu_id"], $_POST["usu_pass"]);
         break;
 

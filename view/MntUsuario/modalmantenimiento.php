@@ -55,6 +55,8 @@
                         <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Cerrar</button>
                         <button type="submit" name="action" id="btnModalGuardar" value="add" class="btn btn-rounded btn-primary">Guardar</button>
                     </div>
+
+
                 </form>
             </div>
         </div>
@@ -72,8 +74,8 @@
 
     // Evento click del botón de guardar
     document.getElementById("btnModalGuardar").addEventListener("click", function(event) {
-
-        let passwordValue = document.getElementById("usu_pass");
+        // Obtener el valor del campo de contraseña
+        let passwordValue = $("#usu_pass").val();
 
         // Verificar si la contraseña está encriptada
         if (isPasswordHashed(passwordValue)) {

@@ -189,6 +189,17 @@ class Usuario extends Conectar
         return $resultado = $sql->fetchAll();
     }
 
+
+    public function get_user_pass($usu_id)
+    {
+        $conectar = parent::Conexion();
+        parent::set_names();
+        $sql = "SELECT usu_pass FROM tm_usuario WHERE usu_id = ?";
+        $sql = $conectar->prepare($sql);
+        $sql->bindValue(1, $usu_id);
+        $sql->execute();
+        return $sql->fetch();
+    }
     public function update_user_pass($usu_id, $usu_pass)
     {
         $conectar = parent::Conexion();

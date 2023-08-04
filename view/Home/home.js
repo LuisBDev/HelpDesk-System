@@ -3,7 +3,7 @@ function init() {
 }
 
 $(document).ready(function () {
-    var usu_id = $('#user_idx').val();
+    let usu_id = $('#user_idx').val();
 
     if ($('#rol_idx').val() == 1) {
         $.post("../../controller/usuario.php?op=total", { usu_id: usu_id }, function (data) {

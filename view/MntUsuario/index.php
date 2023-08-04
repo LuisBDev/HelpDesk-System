@@ -45,6 +45,8 @@ if (isset($_SESSION["usu_id"])) {
                                 <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Rol</th>
                                 <th class="text-center" style="width: 5%;"></th>
                                 <th class="text-center" style="width: 5%;"></th>
+                                <th class="text-center" style="width: 5%;"></th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -64,12 +66,13 @@ if (isset($_SESSION["usu_id"])) {
                                     echo "<td class='d-none d-sm-table-cell'>{$usuario['usu_pass']}</td>";
                                     echo "<td class='d-none d-sm-table-cell'>{$usuario['rol_id']}</td>";
                                     echo "<td class='text-center'><a href='editar.php?id={$usuario['usu_id']}'><i class='fa fa-edit'></i></a></td>";
+                                    echo "<td class='text-center'><a href='editarclave.php?id={$usuario['usu_id']}'><i class='fa fa-edit'></i></a></td>";
                                     echo "<td class='text-center'><a href='eliminar.php?id={$usuario['usu_id']}'><i class='fa fa-trash'></i></a></td>";
                                     echo "</tr>";
                                 }
                             } else {
 
-                                echo "<tr><td colspan='7'>No se encontraron registros</td></tr>";
+                                echo "<tr><td colspan='8'>No se encontraron registros</td></tr>";
                             }
                             ?>
 
@@ -83,6 +86,7 @@ if (isset($_SESSION["usu_id"])) {
         <!-- Contenido -->
 
         <?php require_once "modalmantenimiento.php"; ?>
+        <?php require_once "modalclave.php"; ?>
 
         <?php require_once "../MainJs/js.php"; ?>
 

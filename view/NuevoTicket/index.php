@@ -69,6 +69,7 @@ if (isset($_SESSION["usu_id"])) {
                                 </fieldset>
                             </div>
 
+
                             <div class="col-lg-12">
                                 <fieldset class="form-group">
                                     <label class="form-label semibold" for="tick_descrip">Descripción</label>
