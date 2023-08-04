@@ -80,9 +80,6 @@ if (isset($_POST["enviar"]) and $_POST["enviar"] == "si") {
                     </div>
                     <div class="form-group">
                         <div class="float-right reset">
-                            <a href="reset-password.php">Olvidé mi contraseña</a>
-                        </div>
-                        <div class="float-left reset">
                             <a href="#" id="btnsoporte">Acceso Soporte</a>
                         </div>
                     </div>
