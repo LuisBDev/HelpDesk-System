@@ -43,8 +43,8 @@ if (isset($_SESSION["usu_id"])) {
                                 <th class="text-center d-none d-sm-table-cell" style="width: 40%;">Correo</th>
                                 <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Contraseña<br>Encriptada</th>
                                 <th class="text-center d-none d-sm-table-cell" style="width: 5%;">Rol</th>
-                                <th class="text-center" style="width: 5%;"></th>
-                                <th class="text-center" style="width: 5%;"></th>
+                                <th class="text-center" style="width: 5%;">Editar Info.</th>
+                                <th class="text-center" style="width: 5%;">Editar Clave</th>
                                 <th class="text-center" style="width: 5%;"></th>
 
                             </tr>
@@ -72,7 +72,7 @@ if (isset($_SESSION["usu_id"])) {
                                 }
                             } else {
 
-                                echo "<tr><td colspan='8'>No se encontraron registros</td></tr>";
+                                echo "<tr><td colspan='7'>No se encontraron registros</td></tr>";
                             }
                             ?>
 

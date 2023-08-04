@@ -21,8 +21,8 @@ switch ($_GET["op"]) {
             $sub_array[] = $row["usu_nom"];
             $sub_array[] = $row["usu_ape"];
             $sub_array[] = $row["usu_correo"];
-            //Encrypt using password_hash
             // $sub_array[] = $row["usu_pass"];
+            //Encrypt using password_hash
             $hashed_password = password_hash($row["usu_pass"], PASSWORD_BCRYPT);
             $sub_array[] = substr($hashed_password, 0, 8) . '...';
 
@@ -59,8 +59,8 @@ switch ($_GET["op"]) {
                 $output["usu_nom"] = $row["usu_nom"];
                 $output["usu_ape"] = $row["usu_ape"];
                 $output["usu_correo"] = $row["usu_correo"];
-                // $output["usu_pass"] = $row["usu_pass"];
-                $output["usu_pass"] = password_hash($row["usu_pass"], PASSWORD_DEFAULT);
+                $output["usu_pass"] = $row["usu_pass"];
+                // $output["usu_pass"] = password_hash($row["usu_pass"], PASSWORD_DEFAULT);
                 $output["rol_id"] = $row["rol_id"];
             }
             echo json_encode($output);

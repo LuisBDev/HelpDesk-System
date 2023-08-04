@@ -13,6 +13,8 @@ function init() {
 function guardaryeditar(e) {
     e.preventDefault();
     let formData = new FormData($("#usuario_form")[0]);
+    let usu_pass = $('#usu_pass').val();
+    formData.append('usu_pass', usu_pass); // Agregar usu_pass al formData
 
     $.ajax({
         url: "../../controller/usuario.php?op=guardaryeditar",

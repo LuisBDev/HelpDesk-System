@@ -38,11 +38,6 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label" for="usu_pass">Contraseña Encriptada</label>
-                            <input type="text" class="form-control" id="usu_pass" name="usu_pass" placeholder="************" required>
-                        </div>
-
-                        <div class="form-group">
                             <label class="form-label" for="rol_id">Rol</label>
                             <select class="select2" id="rol_id" name="rol_id">
                                 <option value="1">Usuario</option>
@@ -64,24 +59,3 @@
 </body>
 
 </html>
-
-
-<script>
-    // Función para verificar si la contraseña está encriptada con password_hash
-    function isPasswordHashed(password) {
-        return password.startsWith("$2y$") || password.startsWith("$2a$") || password.startsWith("$2b$");
-    }
-
-    // Evento click del botón de guardar
-    document.getElementById("btnModalGuardar").addEventListener("click", function(event) {
-        // Obtener el valor del campo de contraseña
-        let passwordValue = $("#usu_pass").val();
-
-        // Verificar si la contraseña está encriptada
-        if (isPasswordHashed(passwordValue)) {
-            event.preventDefault(); // Evitar el envío del formulario
-            // Mostrar mensaje de error con SweetAlert
-            swal("Error", "No se permite guardar contraseñas encriptadas.", "error");
-        }
-    });
-</script>
