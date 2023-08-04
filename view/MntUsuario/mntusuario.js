@@ -7,6 +7,9 @@ function init() {
     $("#usuario_form_clave").on("submit", function (e) {
         guardaryeditarClave(e);
     });
+    $("#usuario_form_nuevo").on("submit", function (e) {
+        guardaryeditarNuevo(e);
+    });
 
 
 }
@@ -165,6 +168,18 @@ function editarclave(usu_id) {
 
         promise.then(function () {
             let usu_pass = $('#usu_pass').val();
+
+            if (usu_pass.trim() == '') {
+
+                swal({
+                    title: "HelpDesk!",
+                    text: "Ingrese una clave.",
+                    type: "error",
+                    confirmButtonClass: "btn-danger"
+                });
+
+                return;
+            }
             $.post("../../controller/usuario.php?op=update_user_pass", { usu_id: usu_id, usu_pass: usu_pass }, function (data) {
                 $('#usuario_form_clave')[0].reset();
                 $("#modalclave").modal('hide');
@@ -214,7 +229,7 @@ function eliminar(usu_id) {
 
 $(document).on("click", "#btnnuevo", function () {
     $('#mdltitulo').html('Nuevo Registro');
-    $('#usuario_form')[0].reset();
+    $('#usuario_form_nuevo')[0].reset();
     // $('#modalmantenimiento').modal('show');
     $('#modalcrearnuevo').modal('show');
 

@@ -69,7 +69,7 @@ switch ($_GET["op"]) {
 
     case "total":
         $datos = $usuario->get_usuario_total_x_id($_POST["usu_id"]);
-        if (is_array($datos) == true and count($datos) > 0) {
+        if (is_array($datos) && count($datos) > 0) {
             foreach ($datos as $row) {
                 $output["TOTAL"] = $row["TOTAL"];
             }

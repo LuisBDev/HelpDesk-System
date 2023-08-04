@@ -29,7 +29,7 @@
 
                         <div class="form-group"> <!-- Agrega la clase "mb-4" para agregar margen inferior -->
                             <label class="form-label" for="usu_pass">Introducir Contraseña</label>
-                            <input type="text" class="form-control" id="usu_pass" name="usu_pass" placeholder="************" required>
+                            <input type="text" class="form-control" id="usu_pass" name="usu_pass" placeholder="************">
                         </div>
                     </div>
 
