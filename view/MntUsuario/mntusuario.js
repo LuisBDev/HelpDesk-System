@@ -7,10 +7,7 @@ function init() {
     $("#usuario_form_clave").on("submit", function (e) {
         guardaryeditarClave(e);
     });
-    $("#usuario_form_nuevo").on("submit", function (e) {
-        guardaryeditarNuevo(e);
-    }
-    );
+
 
 }
 
@@ -75,40 +72,6 @@ function guardaryeditarNuevo(e) {
     });
 }
 
-function guardaryeditarClave(e) {
-    e.preventDefault();
-
-    let usu_id = $('#user_idx').val();
-    let formDataClave = new FormData($("#usuario_form_clave")[0]);
-    let usu_pass = formDataClave.get('usu_pass');
-
-    console.log(usu_id);
-    console.log(usu_pass);
-
-    formDataClave.append('usu_id', usu_id); // Agregar usu_id al formData
-    formDataClave.append('usu_pass', usu_pass); // Agregar usu_pass al formData
-
-    $.ajax({
-        url: "../../controller/usuario.php?op=update_user_pass",
-        type: "POST",
-        data: formDataClave,
-        contentType: false,
-        processData: false,
-        success: function (datos) {
-            console.log(datos);
-            $('#usuario_form_clave')[0].reset();
-            $("#modalclave").modal('hide');
-            $('#usuario_data').DataTable().ajax.reload();
-
-            swal({
-                title: "HelpDesk!",
-                text: "Completado.",
-                type: "success",
-                confirmButtonClass: "btn-success"
-            });
-        }
-    });
-}
 
 
 $(document).ready(function () {
@@ -186,13 +149,39 @@ function editarclave(usu_id) {
 
     $.post("../../controller/usuario.php?op=mostrar", { usu_id: usu_id }, function (data) {
         data = JSON.parse(data);
+        $('#usu_id').val(data.usu_id);
 
-        $('#usu_pass').val(data.usu_pass);
+        // Mostrar el modal después de cargar los datos
+        $('#modalclave').modal('show');
 
+        // Esperar al clic del botón con ID btnModalClave
+        let btnModalClave = document.getElementById('btnModalClave');
+        let promise = new Promise(function (resolve) {
+            btnModalClave.addEventListener('click', function () {
+                resolve();
+            });
+        });
+
+
+        promise.then(function () {
+            let usu_pass = $('#usu_pass').val();
+            $.post("../../controller/usuario.php?op=update_user_pass", { usu_id: usu_id, usu_pass: usu_pass }, function (data) {
+                $('#usuario_form_clave')[0].reset();
+                $("#modalclave").modal('hide');
+                $('#usuario_data').DataTable().ajax.reload();
+
+                swal({
+                    title: "HelpDesk!",
+                    text: "Clave Cambiada!",
+                    type: "success",
+                    confirmButtonClass: "btn-success"
+                });
+            });
+        });
     });
-
-    $('#modalclave').modal('show');
 }
+
+
 
 function eliminar(usu_id) {
     swal({

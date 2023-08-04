@@ -17,11 +17,16 @@
                     <button type="button" class="modal-close" data-dismiss="modal" aria-label="Close">
                         <i class="font-icon-close-2"></i>
                     </button>
+
+
                     <h5>Editar Clave </h5>
                 </div>
 
                 <form method="post" id="usuario_form_clave">
                     <div class="modal-body"> <!-- Agrega esta clase al cuerpo del modal para estilizarlo -->
+
+                        <input type="hidden" id="usu_id" name="usu_id">
+
                         <div class="form-group"> <!-- Agrega la clase "mb-4" para agregar margen inferior -->
                             <label class="form-label" for="usu_pass">Introducir Contraseña</label>
                             <input type="text" class="form-control" id="usu_pass" name="usu_pass" placeholder="************" required>
