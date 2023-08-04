@@ -149,6 +149,7 @@ function editar(usu_id) {
 
 function editarclave(usu_id) {
     $('#mdltitulo').html('Editar Clave');
+    $('#usuario_form_clave')[0].reset();
 
     $.post("../../controller/usuario.php?op=mostrar", { usu_id: usu_id }, function (data) {
         data = JSON.parse(data);
